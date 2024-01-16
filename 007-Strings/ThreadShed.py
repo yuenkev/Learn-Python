@@ -132,10 +132,77 @@ print(daily_transactions_split)
 #8
 transactions_clean = []
 
-for y in daily_transactions_split:
-  item = y.strip()
-  transactions_clean.append(item)
+for tt in daily_transactions_split:
+  for ttt in tt:
+    item = ttt.strip()
+  transactions_clean.append(tt)
 
-#9
 print(transactions_clean)
 
+#10
+customers = []
+sales = []
+thread_sold = []
+
+#11
+for t in transactions_clean:
+  customers.append(t[0])
+  sales.append(t[1])
+  thread_sold.append(t[2])
+
+#12
+print(customers)
+print(sales)
+print(thread_sold)
+
+#13
+total_sales = 0
+
+#14
+for s in sales:
+  total_sales += float(s.strip().strip('$'))
+
+#15
+print(total_sales)
+
+#16
+print(thread_sold)
+
+#17
+thread_sold_split = []
+
+for item in thread_sold:
+    # Check if it is a single color or multiple colors
+    if '&' in item:
+        # If multiple colors, split the string around the '&' character
+        colors = item.split('&')
+        # Add each color individually to thread_sold_split
+        thread_sold_split.extend(colors)
+    else:
+        # If a single color, append it to thread_sold_split
+        thread_sold_split.append(item)
+
+print(thread_sold_split)
+
+#19 
+def color_count(color):
+  for c in thread_sold_split:
+    # Count the number of occurrences of the specified color in thread_sold_split
+    count = thread_sold_split.count(color)
+    return count
+
+#20
+for t in thread_sold_split:
+  t.replace("\n", "")
+
+
+print(color_count('white'))
+
+#21
+colors = ['red', 'yellow', 'green', 'white', 'black', 'blue', 'purple']
+
+#22
+# Iterate through unique colors and print sentences
+for color in colors:
+    count = color_count(color)
+    print("Today, {} threads of {} color were sold.".format(count, color))
